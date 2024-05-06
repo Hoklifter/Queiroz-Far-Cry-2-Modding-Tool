@@ -1,0 +1,5 @@
+SOFTWARE-DESIGN-PLAN.md
+.venv
+launch.json
+patch*
+__pycache__
