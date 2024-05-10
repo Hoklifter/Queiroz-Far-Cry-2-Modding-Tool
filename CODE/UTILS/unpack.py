@@ -15,7 +15,6 @@ class Unpack:
         self.file_dir = os.path.dirname(self.file_path)
         self.file_basename = os.path.basename(self.file_path)
         self.file_name = os.path.splitext(self.file_basename)[0]
-        self.validate_file_path()
 
         # unpacking tools
         self.tools_dir = os.path.join(self.cwd, "CODE/BOGGALOG_TOOLS/Packing-Unpacking")
@@ -28,18 +27,14 @@ class Unpack:
         self.xml_to_decode_dir = os.path.join(self.xml_decoder_tool_dir, r"Put xml files to decode in here")
         
         self.main()
-
-    def validate_file_path(self):
-        if any([
-            not self.file_path, 
-            self.file_extension[-1] not in [".dat", ".fat"]
-        ]):
-            raise ValueError(f"Invalid filetype {self.file_path}")
         
     def main(self):
 
         # unpack fat & dat
-        subprocess.run(["wine", self.unpack_fat_tool, self.file_path])
+        file_validate = subprocess.run(["wine", self.unpack_fat_tool, self.file_path], capture_output=True).stderr # unpacks the .fat file and get stderr
+        if b'Unhandled Exception:' in file_validate:
+                print("Invalid File Type or File not Found")
+                exit()
         unpacked_file_dir = f"{self.file_extension[0]}_unpack"
 
         # convert binaries
