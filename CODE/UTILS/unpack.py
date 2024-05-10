@@ -33,7 +33,7 @@ class Unpack:
         # unpack fat & dat
         file_validate = subprocess.run(["wine", self.unpack_fat_tool, self.file_path], capture_output=True).stderr # unpacks the .fat file and get stderr
         if b'Unhandled Exception:' in file_validate:
-                print("Invalid File Type or File not Found")
+                for x in file_validate: print(x)
                 exit()
         unpacked_file_dir = f"{self.file_extension[0]}_unpack"
 
