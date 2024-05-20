@@ -48,13 +48,13 @@ class Unpack:
         for xml_file in os.listdir(converted_patch_override_dir): # Move xml files
             xml_file_path = os.path.join(converted_patch_override_dir, xml_file)
             new_xml_file_path = os.path.join(self.xml_to_decode_dir, xml_file)
-            os.rename(xml_file_path, new_xml_file_path)
+            os.replace(xml_file_path, new_xml_file_path)
         subprocess.run(["wine", self.xml_decoder_tool])
 
         for xml_file in os.listdir(self.xml_to_decode_dir): # Move xml files back
             xml_file_path = os.path.join(self.xml_to_decode_dir, xml_file)
             new_xml_file_path = os.path.join(converted_patch_override_dir, xml_file)
-            os.rename(xml_file_path, new_xml_file_path)
+            os.replace(xml_file_path, new_xml_file_path)
 
         
 
