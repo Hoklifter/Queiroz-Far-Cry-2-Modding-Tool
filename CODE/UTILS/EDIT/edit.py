@@ -51,7 +51,6 @@ class Edit:
     
     def main(self):
         while self.stack:
-            "preparar GUI e testar em outros arquivos"
             show_options(self)
             ask_for_input(self)
             logic_based_on_user_input(self)

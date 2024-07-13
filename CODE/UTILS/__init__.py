@@ -1,3 +1,5 @@
-from .unpack import Unpack
-from .pack import Pack
+from .file_operations import (
+    unpack,
+    pack
+)
 from .EDIT import Edit
