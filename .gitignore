@@ -3,3 +3,4 @@ SOFTWARE-DESIGN-PLAN.md
 launch.json
 patch*
 __pycache__
+*.xml

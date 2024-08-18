@@ -14,6 +14,6 @@ class Window(tk.Tk):
 
         self.gui_instance = gui_instance
         self.title("Far Cry 2 Modding Tool")
-        self.geometry("600x550")
+        self.geometry("800x600")
         self.resizable(False, False)
         self.iconphoto(False, iconpng)
