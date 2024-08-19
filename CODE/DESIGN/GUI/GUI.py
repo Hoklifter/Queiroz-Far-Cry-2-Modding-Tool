@@ -1,6 +1,6 @@
 from .INTERFACE_ELEMENTS import (
     Window,
-    MenuBar,
+    Menubar,
     Table,
     MainFrame
 )
@@ -9,7 +9,7 @@ from tkinter import Frame
 
 
 class GUI:
-    def __init__(self, app) -> None:
+    def __init__(self) -> None:
         """
         -GUI Constructors
         -Decorators done
@@ -17,9 +17,8 @@ class GUI:
         -More commands on windowbar
         -Get element_info
         """
-        self.app = app
-        self.window = Window(self)
-        self.menubar = MenuBar(self.window)
+        self.window = Window()
+        self.menubar = Menubar(self.window)
         self.mainframe = MainFrame(self.window)
 
     

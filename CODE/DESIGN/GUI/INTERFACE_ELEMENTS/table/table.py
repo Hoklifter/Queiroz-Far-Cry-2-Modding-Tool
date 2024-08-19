@@ -20,7 +20,6 @@ from .....OBJECTS import (
 
 class Table:
     def __init__(self, master):
-        self.fc2moddingtool = master.master.gui_instance.app
         self.master = master
         self.stack = []
 
@@ -41,11 +40,12 @@ class Table:
         self.xml_related_frame = master
 
     def recreate_file_things(self):
+        from .....fc2moddingtool import FC2ModdingTool
         self.try_to_destroy_widget("file_related_frame")
         master = FileRelatedFrame(self.master)
-        parents_names = [parent.name for parent in self.fc2moddingtool.xml.parents]
+        parents_names = [parent.name for parent in FC2ModdingTool.xml.parents]
 
-        self.filelabel = FileLabel(master.file_label_frame, self.fc2moddingtool.xml.basename)
+        self.filelabel = FileLabel(master.file_label_frame, FC2ModdingTool.xml.basename)
         self.parent_dropdown = ParentDropdown(master.parent_dropdown_frame, parents_names)
 
         self.file_related_frame = master

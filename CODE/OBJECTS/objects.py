@@ -1,5 +1,4 @@
 import xml.etree.ElementTree as et
-import tkinter
 import os
 
 class FC2XmlElement:
@@ -46,5 +45,5 @@ class FC2Xml(et.ElementTree):
         return _parents
     
     def save_document(self):
-        self.write(self.path)
+        self.write(self.path, short_empty_elements=False)
     
