@@ -18,6 +18,11 @@ from .OBJECTS import (
     FC2Xml
 )
 
+from .UTILS import (
+    pack,
+    unpack,
+)
+
 
 from .DESIGN import (
     GUI
@@ -28,10 +33,8 @@ from .DESIGN.GUI.utils import (
 )
 
 class FC2ModdingTool:
-    """!!!mais alguns buttons"""
     unpacked:str = None
     xml:FC2Xml = None
     gui = GUI()
 
 FC2ModdingTool.gui.window.mainloop()
-

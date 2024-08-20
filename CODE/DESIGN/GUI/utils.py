@@ -1,7 +1,5 @@
 from tkinter import filedialog
-from ...UTILS.file_operations import (
-    pack, unpack
-)
+from ...UTILS import pack, unpack
 from ...OBJECTS import FC2Xml
 
 def ask_for_path_then_execute(filetypes=None, askfordir=False, title=None):
@@ -42,11 +40,6 @@ def _unpack(fatpath):
     FC2ModdingTool.unpacked = unpack(fatpath)
     _open_xml()
 
-def _pack_current():
-    from ...fc2moddingtool import FC2ModdingTool
-
-    pack(FC2ModdingTool.unpacked)
-
 @ask_for_path_then_execute(askfordir=True)
 def _pack(dirpath):
     pack(dirpath)
@@ -56,6 +49,7 @@ def _open_xml(xml_path):
     from ...fc2moddingtool import FC2ModdingTool
 
     FC2ModdingTool.xml = FC2Xml(xml_path)
+
     FC2ModdingTool.gui.mainframe.show()
     FC2ModdingTool.gui.mainframe.table.create_table(FC2ModdingTool.xml)()
 

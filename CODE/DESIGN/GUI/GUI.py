@@ -1,11 +1,8 @@
 from .INTERFACE_ELEMENTS import (
     Window,
     Menubar,
-    Table,
     MainFrame
 )
-
-from tkinter import Frame
 
 
 class GUI:

@@ -29,7 +29,7 @@ def move_element(element_path : str, destination : str, filters=()):
     for func in filters:
         if not func(element_path):
             return
-        
+
     element_name = os.path.basename(element_path)
     destination = os.path.join(destination, element_name)
 
@@ -48,7 +48,7 @@ def convert_entity_library(library_path : str) -> dict:
     a directory with xml files to a .fcb.
 
     You must pass the entity library or the entity library info
-    
+
     passing entitylibrarypatchoverride.fcb will create entitylibrarypatchoverride and entitylibrarypatchoverride.xml
     passing entitylibrarypatchoverride.xml will create entitylibrarypatchoverride.fcb
 
@@ -56,7 +56,7 @@ def convert_entity_library(library_path : str) -> dict:
 
     entity_library_path_no_ext, entity_library_extension = os.path.splitext(library_path)
     subprocess.run(["wine", FCB_TOOL_CONVERT, library_path])
-    
+
     if entity_library_extension == ".xml":
         converted_entity_library = {
             "file" : entity_library_path_no_ext + ".fcb",
@@ -129,7 +129,7 @@ def decode_xmls(directory : str):
 def unpack(fat_path : str) -> str:
     """Unpack .fat & .dat files and decode .xml files.
     Returns unpacked directory path"""
-    
+
     # .fat or .dat file
     fat_path = os.path.realpath(fat_path)
 
@@ -160,17 +160,17 @@ def unpack(fat_path : str) -> str:
 
 def pack(unpacked_path : str) -> dict:
     """Convert .xml to binary .fcb file and pack folder into .fat & .dat
-    
+
     Return packed files info
     """
-    
+
     unpacked_path = os.path.realpath(unpacked_path)
     unpacked_name = os.path.basename(unpacked_path)
 
     # convert libraries
     convert_libraries_in_unpacked(unpacked_path, mode="to_fcb")
 
-    
+
     # move old converted library
     move_old_entity_library(unpacked_path)
 
@@ -187,5 +187,3 @@ def pack(unpacked_path : str) -> dict:
     }
 
     return packed_files
-
-
