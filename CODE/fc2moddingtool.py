@@ -14,37 +14,27 @@
         #     "weapons.xml" : self.edit_weapons,"""
 
 
-import tkinter as tk
-
-from tkinter import (
-    filedialog
-)
-
-from xml.etree.ElementTree import (
-    Element
-)
-import os 
-
 from .OBJECTS import (
     FC2Xml
 )
 
 from .UTILS import (
-    unpack,
     pack,
-
+    unpack,
 )
+
 
 from .DESIGN import (
     GUI
 )
 
-class FC2ModdingTool:
-    """!!! Mudar pra class var inves de instance var, e save_document"""
-    def __init__(self,):
+from .DESIGN.GUI.utils import (
+    _open_xml
+)
 
-        self.unpacked:str = None
-        self.xml:FC2Xml = None
-        self.gui = GUI(self)
-        self.gui.menubar._select_xml("21_WeaponProperties.xml")
-        self.gui.window.mainloop()
+class FC2ModdingTool:
+    unpacked:str = None
+    xml:FC2Xml = None
+    gui = GUI()
+
+FC2ModdingTool.gui.window.mainloop()

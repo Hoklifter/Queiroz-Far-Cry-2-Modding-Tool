@@ -10,6 +10,8 @@ from .elements import (
     MyTableCanva,
     FileLabel,
     SaveButton,
+    OpenXmlButton,
+    PackButton
 )
 
 from .....OBJECTS import (
@@ -20,7 +22,6 @@ from .....OBJECTS import (
 
 class Table:
     def __init__(self, master):
-        self.fc2moddingtool = master.master.gui_instance.app
         self.master = master
         self.stack = []
 
@@ -28,7 +29,7 @@ class Table:
         if hasattr(self, widget):
             widget = getattr(self, widget)
             widget.destroy()
-       
+
     def recreate_xml_things(self):
         self.try_to_destroy_widget("xml_related_frame")
         master = XMLRelatedFrame(self.master)
@@ -37,15 +38,18 @@ class Table:
         self.go_back_button = ActionButton(master.button_frame, "Go Back", self.go_back)
         self.nav_stack = NavStack(master.nav_stack_frame, self.stack)
         self.save_button = SaveButton(master.operations_frame)
+        self.load_button = OpenXmlButton(master.operations_frame)
+        self.pack_button = PackButton(master.operations_frame)
 
         self.xml_related_frame = master
 
     def recreate_file_things(self):
+        from .....fc2moddingtool import FC2ModdingTool
         self.try_to_destroy_widget("file_related_frame")
         master = FileRelatedFrame(self.master)
-        parents_names = [parent.name for parent in self.fc2moddingtool.xml.parents]
+        parents_names = [parent.name for parent in FC2ModdingTool.xml.parents]
 
-        self.filelabel = FileLabel(master.file_label_frame, self.fc2moddingtool.xml.basename)
+        self.filelabel = FileLabel(master.file_label_frame, FC2ModdingTool.xml.basename)
         self.parent_dropdown = ParentDropdown(master.parent_dropdown_frame, parents_names)
 
         self.file_related_frame = master
@@ -54,7 +58,7 @@ class Table:
         if len(self.stack) > 1:
             self.stack.pop()
             self.render()
-    
+
     def create_table(self, element_reference:FC2Xml|FC2XmlParent|FC2XmlElement):
         def wrapper():
             if isinstance(element_reference, FC2Xml):
@@ -62,10 +66,10 @@ class Table:
                 parent_zero:FC2XmlParent = element_reference.parents[self.parent_dropdown.current()]
                 self.create_table(parent_zero)()
                 return
-                
+
             if isinstance(element_reference, FC2XmlElement):
                 self.stack.append(element_reference)
-                
+
             elif isinstance(element_reference, FC2XmlParent):
                 self.stack = [element_reference.entity]
 
@@ -87,13 +91,7 @@ class Table:
                 )
             else:
                 row = table_length = self.table_canva.model.getRowCount()
-                
+
                 self.table_canva.addRow(index)
                 self.table_canva.model.setValueAt(child.name, row, 0)
                 self.table_canva.model.setValueAt(child.text, row, 1)
-
-
-    
-
-
-

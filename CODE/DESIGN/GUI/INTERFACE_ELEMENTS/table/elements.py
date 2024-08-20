@@ -3,6 +3,7 @@ from tkinter import ttk
 import tkintertable as tt
 from customtkinter import CTkTextbox
 from .....OBJECTS import FC2XmlElement, FC2XmlParent
+from ...utils import _save_xml, _open_xml, _pack, _unpack
 
 class ParentDropdown(ttk.Combobox):
     def __init__(self, master, values) -> None:
@@ -12,9 +13,10 @@ class ParentDropdown(ttk.Combobox):
         self.bind("<<ComboboxSelected>>", self.parent_changed)
 
     def parent_changed(self, event):
-        table = self.master.master.master.table #ParentDropdownFrame, FileRelatedFrame, MainFrame, Table
-        fc2moddingtool = self.master.master.master.master.gui_instance.app ##ParentDropdownFrame, FileRelatedFrame, MainFrame, Window, gui_instance, app
-        selected_parent = fc2moddingtool.xml.parents[self.current()]
+        from .....fc2moddingtool import FC2ModdingTool
+        parents = FC2ModdingTool.xml.parents
+        table = FC2ModdingTool.gui.mainframe.table
+        selected_parent = parents[self.current()]
         table.create_table(selected_parent)()
 
 class FileLabel(tk.Text):
@@ -51,14 +53,16 @@ class MyTableCanva(tt.TableCanvas):
         self.bind_all('<KeyRelease>', self.set_element)
 
     def set_element(self, event):
-        fc2moddingtool = self.master.master.master.master.gui_instance.app #self, tableframe, xmlrelated, mainframe, window, gui_instance, app
+        from .....fc2moddingtool import FC2ModdingTool
+
+        table_stack = FC2ModdingTool.gui.mainframe.table.stack
         index = self.get_currentRecordName()
         name, value = self.model.data[index].values()
-        element = fc2moddingtool.gui.mainframe.table.stack[-1]
+        element:FC2XmlElement = table_stack[-1]
         element.set_child_value(index, value)
         """Testar e depois dar uma olhada em fc2moddingtool"""
         # print(f"""Modificando o filho de '{element.name}' no index {index} com nome de '{name}'. Valor antigo : {element.element_instance[index].text}, valor novo : {value} """)
-        
+
 
 class ActionButton(tk.Button):
     def __init__(self, master, text, command):
@@ -67,8 +71,20 @@ class ActionButton(tk.Button):
 
 class SaveButton(ActionButton):
     def __init__(self, master):
-        ActionButton.__init__(self, master, text="Save", command=self.save_file)
+        ActionButton.__init__(self, master, text="Save", command=_save_xml)
         self.pack(side='left')
 
-    def save_file(self):
-        print("saving...")
+class OpenXmlButton(ActionButton):
+    def __init__(self, master):
+        ActionButton.__init__(self, master, text="Open Xml...", command=_open_xml)
+        self.pack(side='left')
+
+class UnpackButton(ActionButton):
+    def __init__(self, master):
+        ActionButton.__init__(self, master, text="Unpack...", command=_unpack)
+        self.pack(side='left')
+
+class PackButton(ActionButton):
+    def __init__(self, master):
+        ActionButton.__init__(self, master, text="Pack...", command=_pack)
+        self.pack(side='left')
