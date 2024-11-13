@@ -9,6 +9,13 @@ import shutil
 CWD = os.getcwd()
 TEMP = os.path.join(CWD, "TEMP")
 
+match os.name:
+    case 'posix':
+        RUNNER = 'wine'
+    case 'nt':
+        RUNNER = 'start'
+    case _:
+        raise OSError("Unsupported OS")
 
 # unpacking tools
 TOOLS_DIR = os.path.join(CWD, "CODE/BOGGALOG_TOOLS/Packing-Unpacking")
@@ -55,7 +62,7 @@ def convert_entity_library(library_path : str) -> dict:
     Returns the new library info"""
 
     entity_library_path_no_ext, entity_library_extension = os.path.splitext(library_path)
-    subprocess.run(["wine", FCB_TOOL_CONVERT, library_path])
+    subprocess.run([RUNNER, FCB_TOOL_CONVERT, library_path])
 
     if entity_library_extension == ".xml":
         converted_entity_library = {
@@ -85,6 +92,11 @@ to_fcb : Convert to a .fcb
 
     for directory in ENTITY_LIBRARIES_DIRS:
         entity_library_dir = os.path.join(unpacked_path, directory)
+
+        if not os.path.isdir(entity_library_dir):
+            print(f'warning: {directory} not found in {unpacked_path}. continuing...')
+            continue
+
         for element in os.listdir(entity_library_dir):
 
             element_path = os.path.join(entity_library_dir, element)
@@ -121,7 +133,7 @@ def decode_xmls(directory : str):
     # Move xml files to decoding tool dir
     move_elements(directory, XML_PUT_TO_DECODE_HERE_DIR)
     # Decode
-    subprocess.run(["wine", XML_TOOL_DECODER])
+    subprocess.run([RUNNER, XML_TOOL_DECODER])
     # Move xml files back to original dir
     move_elements(XML_PUT_TO_DECODE_HERE_DIR, directory)
 
@@ -140,7 +152,7 @@ def unpack(fat_path : str) -> str:
         file_basename = os.path.basename(file_path)
         file_path_no_ext = os.path.splitext(file_path)[0]
         file_unpacked_dir = f"{file_path_no_ext}_unpack"
-        file_validate = subprocess.run(["wine", FAT_TOOL_UNPACK, file_path], capture_output=True).stderr # unpacks the .fat file and get stderr
+        file_validate = subprocess.run([RUNNER, FAT_TOOL_UNPACK, file_path], capture_output=True).stderr # unpacks the .fat file and get stderr
 
         if b'Unhandled Exception:' in file_validate:
             for x in file_validate:
@@ -176,7 +188,7 @@ def pack(unpacked_path : str) -> dict:
 
 
     # pack folder
-    subprocess.run(["wine", FAT_TOOL_PACK, unpacked_path])
+    subprocess.run([RUNNER, FAT_TOOL_PACK, unpacked_path])
 
     # move old library back
     move_old_entity_library(unpacked_path, move_back=True)

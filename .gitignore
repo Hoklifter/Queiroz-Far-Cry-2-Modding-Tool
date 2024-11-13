@@ -4,3 +4,5 @@ launch.json
 patch*
 __pycache__
 *.xml
+/CODE/DESIGN/GUI/INTERFACE_ELEMENTS/mainframe/views/sheet
+/CODE/DESIGN/GUI/INTERFACE_ELEMENTS/mainframe/views/simple
