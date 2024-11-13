@@ -13,6 +13,9 @@
         #     "weaponproperties.xml" : self.edit_weaponproperties,
         #     "weapons.xml" : self.edit_weapons,"""
 
+"""TO-DO
+    usar  xpath de busca no simple
+ """
 
 from .OBJECTS import (
     FC2Xml
@@ -21,6 +24,7 @@ from .OBJECTS import (
 from .UTILS import (
     pack,
     unpack,
+
 )
 
 
@@ -37,4 +41,6 @@ class FC2ModdingTool:
     xml:FC2Xml = None
     gui = GUI()
 
+# _open_xml('patch_unpack/generated/entitylibrarypatchoverride/22_weapons.xml')
+FC2ModdingTool.gui.window.update_geometry()
 FC2ModdingTool.gui.window.mainloop()

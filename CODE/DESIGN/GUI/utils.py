@@ -1,6 +1,24 @@
 from tkinter import filedialog
 from ...UTILS import pack, unpack
 from ...OBJECTS import FC2Xml
+import webbrowser
+
+
+def set_viewmode(mode):
+    from ...fc2moddingtool import FC2ModdingTool
+    FC2ModdingTool.gui.mode = mode
+    FC2ModdingTool.gui.window.update_geometry()
+    FC2ModdingTool.gui.mainframe.show()
+
+def try_to_destroy_widget(obj, widget=None):
+        try:
+            if widget:
+                widget = getattr(obj, widget)
+                widget.destroy()
+            else:
+                obj.destroy()
+        except:
+            pass
 
 def ask_for_path_then_execute(filetypes=None, askfordir=False, title=None):
         "Creates the decorator with the passed arguments."
@@ -43,17 +61,20 @@ def _unpack(fatpath):
 @ask_for_path_then_execute(askfordir=True)
 def _pack(dirpath):
     pack(dirpath)
+    print(f'SUCCESS: {dirpath!r} PACKED SUCCESFULLY.')
 
 @ask_for_path_then_execute(filetypes=[("*", ".xml")], title="Select .xml file...",)
 def _open_xml(xml_path):
     from ...fc2moddingtool import FC2ModdingTool
-
     FC2ModdingTool.xml = FC2Xml(xml_path)
-
     FC2ModdingTool.gui.mainframe.show()
-    FC2ModdingTool.gui.mainframe.table.create_table(FC2ModdingTool.xml)()
 
 def _save_xml():
     from ...fc2moddingtool import FC2ModdingTool
 
     FC2ModdingTool.xml.save_document()
+
+def about():
+    webbrowser.open('https://github.com/Hoklifter')
+def help():
+    webbrowser.open('https://github.com/Hoklifter/Queiroz-Far-Cry-2-Modding-Tool')

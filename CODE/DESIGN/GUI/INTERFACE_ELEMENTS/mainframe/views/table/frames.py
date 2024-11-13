@@ -2,6 +2,8 @@ import tkinter as tk
 from customtkinter import CTkScrollableFrame, set_appearance_mode
 set_appearance_mode('light')
 
+from ..common.frames import FileLabelFrame, OperationFrame
+
 class ButtonFrame(CTkScrollableFrame):
     def __init__(self, master):
         CTkScrollableFrame.__init__(self, master, height='11c', border_width=1)
@@ -21,24 +23,13 @@ class NavStackFrame(tk.Frame):
         self.propagate(False)
 
 
-class OperationButtonsFrame(tk.Frame):
-    def __init__(self, master):
-        tk.Frame.__init__(self, master, height='0.7cm', width=767)
-        self.grid(row=2, column=0, columnspan=3)
-        self.propagate(False)
-
-
 class ParentDropdownFrame(tk.Frame):
     def __init__(self, master):
         tk.Frame.__init__(self, master, height='0.6cm', width=498)
         self.grid(row=0, column=1, sticky='W', padx=(47, 0))
         self.propagate(False)
 
-class FileLabelFrame(tk.Frame):
-    def __init__(self, master):
-        tk.Frame.__init__(self, master, height='0.6cm',width=220,)
-        self.grid(sticky="NW", row=0, column=0,)
-        self.propagate(False)
+
 
 class FileRelatedFrame(tk.Frame):
     def __init__(self, master, ):
@@ -49,11 +40,10 @@ class FileRelatedFrame(tk.Frame):
         self.parent_dropdown_frame = ParentDropdownFrame(self)
 
 
-class XMLRelatedFrame(tk.Frame):
+class DOMRelatedFrame(tk.Frame):
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         self.grid(row=1, column=0,)
         self.table_frame = TableFrame(self)
         self.button_frame = ButtonFrame(self)
         self.nav_stack_frame = NavStackFrame(self)
-        self.operations_frame = OperationButtonsFrame(self)
