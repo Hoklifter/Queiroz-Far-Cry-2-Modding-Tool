@@ -1,4 +1,9 @@
 # Queiroz Far Cry 2 Modding Tool
+
+![Screenshot from 2024-11-29 06-49-31](https://github.com/user-attachments/assets/8759bb55-6cd7-4303-8ad2-e7fba2e96dc7)
+![Screenshot from 2024-11-29 06-49-55](https://github.com/user-attachments/assets/8f8f1787-7781-453b-9a7b-18d0c1ce1735)
+![Screenshot from 2024-11-29 06-50-17](https://github.com/user-attachments/assets/360f9c4a-085b-44ef-89b9-fda13c5c2d04)
+
 A tool to facilitate modding of XML files for *Far Cry 2*, with potential compatibility with other Far Cry games.
 
 Tested on Pop!_OS 22.04 (Linux).
