@@ -43,6 +43,6 @@ Before starting, ensure you have [Python](https://www.python.org/downloads/) ins
      *Note: For Windows, replace `python3` with `python` if `python3` does not work.*
 
 7. **How to mod the game?**
-   [FAR CRY MODDING GUIDE](https://steamcommunity.com/app/19900/discussions/0/3110266045073395300/)
-   [FAR CRY MODDING DISCORD COMUNNITY](https://discord.com/invite/farcry-modding-846424998888734731)
+   - [FAR CRY MODDING GUIDE](https://steamcommunity.com/app/19900/discussions/0/3110266045073395300/)
+   - [FAR CRY MODDING DISCORD COMUNNITY](https://discord.com/invite/farcry-modding-846424998888734731)
 ---
